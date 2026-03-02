@@ -3,16 +3,18 @@
 // ─── Encoding helpers ─────────────────────────────────────────────────────────
 
 function uint8ArrayToBase64(bytes) {
+  const CHUNK = 0x8000;
   let binary = '';
-  for (let i = 0; i < bytes.length; i++) {
-    binary += String.fromCharCode(bytes[i]);
+  for (let i = 0; i < bytes.length; i += CHUNK) {
+    binary += String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK));
   }
   return btoa(binary);
 }
 
 /** Base64-encode a string (handles Unicode via UTF-8). */
 function encodeAsBase64(str) {
-  return uint8ArrayToBase64(new TextEncoder().encode(str));
+  const b64 = uint8ArrayToBase64(new TextEncoder().encode(str));
+  return b64.match(/.{1,76}/g).join('\r\n');
 }
 
 /** Base64url-encode a string (URL-safe: no +, /, or = padding). */
