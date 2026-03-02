@@ -14,7 +14,7 @@
   "permissions": ["storage", "activeTab", "identity"],
   "host_permissions": [
     "*://*.substack.com/*",
-    "https://www.googleapis.com/gmail/v1/"
+    "https://www.googleapis.com/gmail/v1/*"
   ],
   "oauth2": {
     "client_id": "158487966359-i0h410g6pci951rsreponv7lqph33o39.apps.googleusercontent.com",
