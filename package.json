@@ -1,0 +1,19 @@
+{
+  "name": "substack_to_kindle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "content.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}
