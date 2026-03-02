@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Substack to Kindle",
+  "version": "1.0.0",
+  "description": "Send any Substack article to your Kindle in one click, including custom-domain newsletters.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "permissions": ["storage", "activeTab", "identity"],
+  "host_permissions": [
+    "*://*/*",
+    "https://www.googleapis.com/gmail/v1/*"
+  ],
+  "oauth2": {
+    "client_id": "158487966359-i0h410g6pci951rsreponv7lqph33o39.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/gmail.send"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["lib/Readability.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
