@@ -58,4 +58,20 @@ describe('makeMultipartMime', () => {
   test('uses CRLF line endings (RFC 2822)', () => {
     expect(result).toContain('\r\n');
   });
+
+  test('attachment body decodes back to original HTML', () => {
+    const html = '<html><body>Hello</body></html>';
+    const mime = makeMultipartMime('test@kindle.com', 'My Article', html, 'my-article.html');
+    // Extract the base64 block: the lines after 'Content-Transfer-Encoding: base64' and the blank line
+    const lines = mime.split('\r\n');
+    const b64StartIdx = lines.indexOf('Content-Transfer-Encoding: base64') + 2; // +1 for blank line
+    // Collect lines until next MIME boundary or end
+    const b64Lines = [];
+    for (let i = b64StartIdx; i < lines.length; i++) {
+      if (lines[i].startsWith('--') || lines[i] === '') break;
+      b64Lines.push(lines[i]);
+    }
+    const decoded = Buffer.from(b64Lines.join(''), 'base64').toString('utf8');
+    expect(decoded).toBe(html);
+  });
 });
