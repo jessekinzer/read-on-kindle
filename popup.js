@@ -5,8 +5,6 @@
 /** Currently extracted article (in memory, not persisted) */
 let currentArticle = null;
 
-/** Tracks queue length so setActionButtonsDisabled can restore correct state */
-let currentQueueCount = 0;
 
 // ─── DOM refs ─────────────────────────────────────────────────────────────────
 
@@ -77,7 +75,6 @@ async function saveQueue(queue) {
 
 function updateQueueUI(queue) {
   const count = queue.length;
-  currentQueueCount = count;
   el.queueCount.textContent = count === 1 ? '1 in queue' : `${count} in queue`;
   el.btnSendDigest.disabled = count === 0;
 }
@@ -175,8 +172,10 @@ async function sendToKindle(htmlString, subject, kindleEmail) {
     const token = await getAuthToken();
     await sendEmail(token, kindleEmail, subject, htmlString, filename);
     showState('sent');
+    return true;
   } catch (err) {
     showError(err.message || 'Failed to send. Please try again.', null);
+    return false;
   } finally {
     document.querySelector('.loading-text').textContent = 'Loading article…';
   }
@@ -292,8 +291,8 @@ function wireMainButtons(tab, kindleEmail) {
     if (queue.length === 0) return;
     const today = new Date().toISOString().slice(0, 10);
     const html = formatDigestHtml(queue);
-    await sendToKindle(html, `Substack Digest — ${today}`, kindleEmail);
-    await saveQueue([]);
+    const sent = await sendToKindle(html, `Substack Digest — ${today}`, kindleEmail);
+    if (sent) await saveQueue([]);
   });
 }
 
