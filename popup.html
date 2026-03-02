@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Substack to Kindle</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <!-- ── Onboarding ── -->
+  <div id="state-onboarding" class="state hidden">
+    <div class="header">
+      <img src="icons/icon48.png" alt="S2K" class="logo">
+      <h1>Substack to Kindle</h1>
+    </div>
+    <p class="intro">Enter your Kindle email address to get started.</p>
+    <label for="input-kindle-email-onboarding">Kindle email</label>
+    <input
+      type="email"
+      id="input-kindle-email-onboarding"
+      placeholder="name@kindle.com"
+      autocomplete="email"
+    >
+    <p class="hint">
+      You must add your sending email address to your
+      <a href="https://www.amazon.com/hz/mycd/myx#/home/settings/payment" target="_blank">
+        Amazon approved senders list
+      </a>
+      before articles will be delivered.
+    </p>
+    <button id="btn-save-email" class="btn btn-primary">Save &amp; Continue</button>
+    <p id="error-onboarding" class="error-inline hidden"></p>
+  </div>
+
+  <!-- ── Main ── -->
+  <div id="state-main" class="state hidden">
+    <div class="toolbar">
+      <span class="app-title">Substack to Kindle</span>
+      <button id="btn-settings" class="icon-btn" title="Settings" aria-label="Settings">⚙</button>
+    </div>
+
+    <!-- Settings panel (inline, hidden by default) -->
+    <div id="settings-panel" class="hidden">
+      <label for="input-kindle-email-settings">Kindle email</label>
+      <div class="input-row">
+        <input
+          type="email"
+          id="input-kindle-email-settings"
+          placeholder="name@kindle.com"
+          autocomplete="email"
+        >
+        <button id="btn-update-email" class="btn btn-small">Save</button>
+      </div>
+      <p id="settings-saved-msg" class="success-inline hidden">Saved!</p>
+    </div>
+
+    <div class="article-info">
+      <p id="article-title" class="article-title">Article title</p>
+      <p id="article-author" class="article-author"></p>
+    </div>
+
+    <div class="actions">
+      <button id="btn-send" class="btn btn-primary">Send to Kindle</button>
+      <button id="btn-add-queue" class="btn btn-secondary">Add to Queue</button>
+    </div>
+
+    <p id="already-queued-msg" class="info-inline hidden">Already in queue</p>
+
+    <div class="queue-row">
+      <span id="queue-count" class="queue-count">0 in queue</span>
+      <button id="btn-send-digest" class="btn btn-secondary btn-small" disabled>Send Digest</button>
+    </div>
+  </div>
+
+  <!-- ── Inactive ── -->
+  <div id="state-inactive" class="state hidden">
+    <div class="header">
+      <img src="icons/icon48.png" alt="S2K" class="logo">
+    </div>
+    <p class="inactive-msg">Open a Substack article to get started.</p>
+  </div>
+
+  <!-- ── Loading ── -->
+  <div id="state-loading" class="state hidden">
+    <div class="loading-inner">
+      <div class="spinner"></div>
+      <span class="loading-text">Loading article…</span>
+    </div>
+  </div>
+
+  <!-- ── Error ── -->
+  <div id="state-error" class="state hidden">
+    <p class="error-title">Something went wrong</p>
+    <p id="error-message" class="error-message"></p>
+    <div class="error-actions">
+      <button id="btn-retry" class="btn btn-secondary btn-small">Retry</button>
+      <button id="btn-dismiss-error" class="btn btn-ghost btn-small">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- ── Sent ── -->
+  <div id="state-sent" class="state hidden">
+    <div class="header">
+      <img src="icons/icon48.png" alt="S2K" class="logo">
+    </div>
+    <p class="sent-msg">Sent to Kindle ✓</p>
+    <p class="sent-sub">Check your Kindle in a few minutes.</p>
+  </div>
+
+  <script src="gmail.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
