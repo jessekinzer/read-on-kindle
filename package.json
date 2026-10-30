@@ -1,0 +1,22 @@
+{
+  "name": "substack_to_kindle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "content.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:e2e": "node tests/e2e/extension.e2e.js",
+    "test:live": "node tests/live/run-live.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "playwright": "1.63.0"
+  }
+}

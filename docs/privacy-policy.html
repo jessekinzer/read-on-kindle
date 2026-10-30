@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy – Substack to Kindle</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #333;
+      background: #fafafa;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 48px 52px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .logo {
+      width: 48px;
+      height: 48px;
+      background: #FF6719;
+      border-radius: 10px;
+      margin-bottom: 24px;
+    }
+    h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+    .subtitle { color: #888; font-size: 14px; margin-bottom: 36px; }
+    h2 { font-size: 17px; font-weight: 600; margin: 32px 0 10px; }
+    p, li { font-size: 15px; line-height: 1.7; color: #444; }
+    ul { padding-left: 20px; margin-top: 6px; }
+    li { margin-bottom: 6px; }
+    .highlight {
+      background: #FFF3E0;
+      border-left: 3px solid #FF6719;
+      padding: 14px 18px;
+      border-radius: 4px;
+      margin: 24px 0;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #555;
+    }
+    a { color: #FF6719; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    footer { margin-top: 40px; padding-top: 24px; border-top: 1px solid #eee; font-size: 13px; color: #aaa; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo"></div>
+    <h1>Privacy Policy</h1>
+    <p class="subtitle">Substack to Kindle Chrome Extension &nbsp;·&nbsp; Last updated: October 2026</p>
+
+    <div class="highlight">
+      <strong>Short version:</strong> This extension only reads the current web page you're on and uses your Gmail account to send one email to your Kindle. It does not collect, store, or share any of your data.
+    </div>
+
+    <h2>What this extension does</h2>
+    <p>Substack to Kindle lets you send articles from Substack and other websites to your Kindle device with one click. It reads the article content from the current page, formats it as an email attachment, and sends it to your Kindle's email address using your Gmail account.</p>
+
+    <h2>Information accessed</h2>
+    <ul>
+      <li><strong>Current page content</strong> – The extension reads the article text, title, and author from the page you're viewing, solely to create the file sent to your Kindle.</li>
+      <li><strong>Kindle email address</strong> – You enter this once. It is saved locally in Chrome's storage on your device only and is never transmitted anywhere except as the recipient of the Kindle email.</li>
+      <li><strong>Gmail (send-only)</strong> – The extension requests permission to send one email on your behalf. It cannot read, access, or modify your existing emails, contacts, or any other Gmail data.</li>
+      <li><strong>Google sign-in</strong> – In Google Chrome the extension uses the Google account Chrome is signed in to. In other browsers, or when Chrome sign-in isn't available, you sign in on Google's own sign-in page. The extension then receives a temporary access token, kept in the browser's memory and discarded when the browser closes, and your Google account's email address, saved locally on your device only so that later sends can sign you in without asking again. Neither is sent anywhere except to Google.</li>
+    </ul>
+
+    <h2>Information we do NOT collect</h2>
+    <ul>
+      <li>We do not operate any servers or databases.</li>
+      <li>We do not collect, transmit, or store your browsing history.</li>
+      <li>We do not collect personal information, analytics, or usage data.</li>
+      <li>We do not sell, rent, or share any data with third parties.</li>
+      <li>We do not use cookies or tracking technologies.</li>
+    </ul>
+
+    <h2>When the extension reads a page</h2>
+    <p>The extension reads a page only when you click its toolbar icon, and only the tab you are looking at. It does not run in the background on the sites you visit. This works the same on Substack, on newsletters published on custom domains (e.g. <em>newsletter.yourname.com</em>), and on other websites.</p>
+    <p>To include pictures in the Kindle file, the extension downloads the images in the article you are sending: from the article's own website, and from Substack's image servers. Many websites store their images on other servers. Only if you turn on <em>Include images from any site</em> in the extension's settings, and approve Chrome's prompt, does the extension also download article images from those other servers. It downloads nothing else, and only when you send an article. You can turn this off at any time in the same setting.</p>
+
+    <h2>Third-party services</h2>
+    <p>The extension uses the <strong>Google Gmail API</strong> solely to send the Kindle email. Your use of Gmail is governed by <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>. No other third-party services are used.</p>
+
+    <h2>Data storage</h2>
+    <p>Your Kindle email address and any articles you add to your queue are stored locally using Chrome's <code>chrome.storage</code> API. This data stays on your device and is never sent to any external server by this extension, except as the Kindle email you choose to send.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy changes, the updated version will be posted at this URL with a new "Last updated" date. Continued use of the extension after changes constitutes acceptance of the revised policy.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this privacy policy? Open an issue on the <a href="https://github.com/jk/substack_to_kindle" target="_blank">GitHub repository</a> or email the developer directly.</p>
+
+    <footer>
+      Substack to Kindle is an independent project and is not affiliated with Substack Inc. or Amazon.
+    </footer>
+  </div>
+</body>
+</html>

@@ -11,22 +11,22 @@
       "128": "icons/icon128.png"
     }
   },
-  "permissions": ["storage", "activeTab", "identity"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "unlimitedStorage", "activeTab", "scripting", "identity"],
   "host_permissions": [
-    "*://*/*",
-    "https://www.googleapis.com/gmail/v1/*"
+    "https://*.substack.com/*",
+    "https://substackcdn.com/*",
+    "https://*.substackcdn.com/*",
+    "https://substack-post-media.s3.amazonaws.com/*",
+    "https://www.googleapis.com/upload/gmail/v1/*"
   ],
+  "optional_host_permissions": ["<all_urls>"],
   "oauth2": {
     "client_id": "158487966359-i0h410g6pci951rsreponv7lqph33o39.apps.googleusercontent.com",
     "scopes": ["https://www.googleapis.com/auth/gmail.send"]
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["lib/Readability.js", "content.js"],
-      "run_at": "document_idle"
-    }
-  ],
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
