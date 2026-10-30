@@ -23,7 +23,7 @@ a:hover { text-decoration: underline; }
 
 /* ─── State visibility ─── */
 .state { display: block; }
-.state.hidden { display: none; }
+.hidden { display: none !important; }
 
 /* ─── Header (onboarding / inactive) ─── */
 .header {
@@ -107,13 +107,21 @@ a:hover { text-decoration: underline; }
   padding: 10px;
   margin-bottom: 12px;
 }
-#settings-panel.hidden { display: none; }
 .input-row {
   display: flex;
   gap: 6px;
   align-items: center;
 }
 .input-row input { margin-bottom: 0; flex: 1; }
+#settings-panel .check-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 0 4px;
+  cursor: pointer;
+}
+.check-row input { margin: 0; accent-color: #ff6719; }
+#settings-panel .hint { margin-bottom: 0; }
 
 /* ─── Article info ─── */
 .article-info {
@@ -201,29 +209,40 @@ a:hover { text-decoration: underline; }
 .info-inline { color: #888; }
 .success-inline { color: #22a06b; }
 .error-inline { color: #d93025; }
-.info-inline.hidden,
-.success-inline.hidden,
-.error-inline.hidden { display: none; }
 
-/* ─── Inactive ─── */
-#state-inactive .inactive-msg {
-  text-align: center;
-  color: #888;
-  font-size: 13px;
-  padding: 16px 0;
+/* ─── Onboarding steps, banner, misc ─── */
+.steps {
+  font-size: 12px;
+  color: #555;
   line-height: 1.5;
+  padding-left: 18px;
+  margin-bottom: 8px;
 }
+.steps li { margin-bottom: 4px; }
+.btn-block { width: 100%; }
+.header-center { justify-content: center; }
+.article-title.muted { font-weight: 400; color: #888; white-space: normal; }
+.banner {
+  font-size: 12px;
+  line-height: 1.4;
+  border-radius: 6px;
+  padding: 6px 8px;
+  margin-bottom: 10px;
+}
+.banner-sent { background: #e9f7ef; color: #1a7f37; }
+.banner-error { background: #fdecea; color: #b3261e; }
 
 /* ─── Loading ─── */
-#state-loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 80px;
+#state-loading { padding: 24px 0 8px; }
+.loading-sub {
+  font-size: 11px;
+  color: #999;
+  text-align: center;
+  margin-top: 10px;
 }
-#state-loading.hidden { display: none; }
 .loading-inner {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 10px;
 }
@@ -273,4 +292,5 @@ a:hover { text-decoration: underline; }
   font-size: 13px;
   color: #888;
   text-align: center;
+  margin-bottom: 12px;
 }

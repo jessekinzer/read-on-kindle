@@ -9,106 +9,119 @@
 <body>
 
   <!-- ── Onboarding ── -->
-  <div id="state-onboarding" class="state hidden">
+  <form id="state-onboarding" class="state hidden" novalidate>
     <div class="header">
-      <img src="icons/icon48.png" alt="S2K" class="logo">
-      <h1>Substack to Kindle</h1>
+      <img src="icons/icon48.png" alt="" class="logo">
+      <h1>Set up your Kindle address</h1>
     </div>
-    <p class="intro">Enter your Kindle email address to get started.</p>
     <label for="input-kindle-email-onboarding">Kindle email</label>
     <input
       type="email"
       id="input-kindle-email-onboarding"
       placeholder="name@kindle.com"
-      autocomplete="email"
+      autocomplete="off"
+      spellcheck="false"
     >
     <p class="hint">
-      You must add your sending email address to your
-      <a href="https://www.amazon.com/hz/mycd/myx#/home/settings/payment" target="_blank">
-        Amazon approved senders list
-      </a>
-      before articles will be delivered.
+      Amazon only delivers email from addresses you approve. Articles are sent
+      from the Google account you sign in with when you first send (in Google
+      Chrome, usually the account Chrome is signed in to), so add that Gmail
+      address to your approved list:
     </p>
-    <button id="btn-save-email" class="btn btn-primary">Save &amp; Continue</button>
-    <p id="error-onboarding" class="error-inline hidden"></p>
-  </div>
+    <ol class="steps">
+      <li>Open Amazon's Manage Your Content and Devices, then Preferences, then Personal Document Settings.</li>
+      <li>Under Approved Personal Document E-mail List, click Add a new approved e-mail address.</li>
+      <li>Enter your Gmail address and click Add Address.</li>
+    </ol>
+    <p class="hint">
+      <a href="https://www.amazon.com/hz/mycd/myx#/home/settings/payment" target="_blank" rel="noopener">Open Amazon Settings →</a>
+    </p>
+    <button id="btn-save-email" type="submit" class="btn btn-primary btn-block">Save &amp; Continue</button>
+    <p id="error-onboarding" class="error-inline hidden" role="alert"></p>
+  </form>
 
   <!-- ── Main ── -->
   <div id="state-main" class="state hidden">
     <div class="toolbar">
       <span class="app-title">Substack to Kindle</span>
-      <button id="btn-settings" class="icon-btn" title="Settings" aria-label="Settings">⚙</button>
+      <button id="btn-settings" type="button" class="icon-btn" title="Settings" aria-label="Settings" aria-expanded="false">⚙</button>
     </div>
 
     <!-- Settings panel (inline, hidden by default) -->
-    <div id="settings-panel" class="hidden">
+    <form id="settings-panel" class="hidden" novalidate>
       <label for="input-kindle-email-settings">Kindle email</label>
       <div class="input-row">
         <input
           type="email"
           id="input-kindle-email-settings"
           placeholder="name@kindle.com"
-          autocomplete="email"
+          autocomplete="off"
+          spellcheck="false"
         >
-        <button id="btn-update-email" class="btn btn-small">Save</button>
+        <button id="btn-update-email" type="submit" class="btn btn-small">Save</button>
       </div>
-      <p id="settings-saved-msg" class="success-inline hidden">Saved!</p>
-    </div>
+      <p id="settings-msg" class="info-inline hidden" role="status"></p>
+      <label class="check-row" for="input-all-images">
+        <input type="checkbox" id="input-all-images">
+        <span>Include images from any site</span>
+      </label>
+      <p class="hint">Many articles keep their images on other sites. Chrome will ask once to let the extension download them. It only downloads images in articles you send.</p>
+      <p id="images-msg" class="info-inline hidden" role="status"></p>
+    </form>
+
+    <p id="status-banner" class="banner hidden" role="status"></p>
 
     <div class="article-info">
-      <p id="article-title" class="article-title">Article title</p>
+      <p id="article-title" class="article-title">Checking this page…</p>
       <p id="article-author" class="article-author"></p>
     </div>
 
-    <div class="actions">
-      <button id="btn-send" class="btn btn-primary">Send to Kindle</button>
-      <button id="btn-add-queue" class="btn btn-secondary">Add to Queue</button>
+    <div id="article-actions" class="actions">
+      <button id="btn-send" type="button" class="btn btn-primary" disabled>Send to Kindle</button>
+      <button id="btn-add-queue" type="button" class="btn btn-secondary" disabled>Add to Queue</button>
     </div>
 
-    <p id="already-queued-msg" class="info-inline hidden">Already in queue</p>
+    <p id="action-msg" class="info-inline hidden" role="status"></p>
 
     <div class="queue-row">
-      <span id="queue-count" class="queue-count">0 in queue</span>
-      <button id="btn-send-digest" class="btn btn-secondary btn-small" disabled>Send Digest</button>
+      <span id="queue-count" class="queue-count">0 articles in queue</span>
+      <button id="btn-send-digest" type="button" class="btn btn-secondary btn-small" disabled>Send Digest</button>
     </div>
   </div>
 
-  <!-- ── Inactive ── -->
-  <div id="state-inactive" class="state hidden">
-    <div class="header">
-      <img src="icons/icon48.png" alt="S2K" class="logo">
-    </div>
-    <p class="inactive-msg">Open a Substack article to get started.</p>
-  </div>
-
-  <!-- ── Loading ── -->
+  <!-- ── Loading / sending ── -->
   <div id="state-loading" class="state hidden">
     <div class="loading-inner">
       <div class="spinner"></div>
-      <span class="loading-text">Loading article…</span>
+      <span id="loading-text" class="loading-text">Loading…</span>
     </div>
+    <p class="loading-sub">You can close this popup. Sending continues in the background.</p>
   </div>
 
   <!-- ── Error ── -->
-  <div id="state-error" class="state hidden">
+  <div id="state-error" class="state hidden" role="alert">
     <p class="error-title">Something went wrong</p>
     <p id="error-message" class="error-message"></p>
     <div class="error-actions">
-      <button id="btn-retry" class="btn btn-secondary btn-small">Retry</button>
-      <button id="btn-dismiss-error" class="btn btn-ghost btn-small">Dismiss</button>
+      <button id="btn-anyway" type="button" class="btn btn-secondary btn-small hidden">Send anyway</button>
+      <button id="btn-retry" type="button" class="btn btn-secondary btn-small">Retry</button>
+      <button id="btn-dismiss-error" type="button" class="btn btn-ghost btn-small">Back</button>
     </div>
   </div>
 
   <!-- ── Sent ── -->
-  <div id="state-sent" class="state hidden">
-    <div class="header">
-      <img src="icons/icon48.png" alt="S2K" class="logo">
+  <div id="state-sent" class="state hidden" role="status">
+    <div class="header header-center">
+      <img src="icons/icon48.png" alt="" class="logo">
     </div>
-    <p class="sent-msg">Sent to Kindle ✓</p>
-    <p class="sent-sub">Check your Kindle in a few minutes.</p>
+    <p id="sent-msg" class="sent-msg">Sent to your Kindle!</p>
+    <p class="sent-sub">It should show up on your Kindle in a few minutes.</p>
+    <p id="sent-note" class="sent-sub hidden"></p>
+    <div class="error-actions">
+      <button id="btn-sent-done" type="button" class="btn btn-secondary btn-small">Done</button>
+    </div>
   </div>
 
-  <script src="gmail.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

@@ -74,4 +74,29 @@ describe('makeMultipartMime', () => {
     const decoded = Buffer.from(b64Lines.join(''), 'base64').toString('utf8');
     expect(decoded).toBe(html);
   });
+
+  test('non-ASCII subjects are RFC 2047 encoded and every line is ASCII', () => {
+    const mime = makeMultipartMime('a@kindle.com', 'Digest — “quotes”', '<p>é</p>', 'x.html');
+    const subjectLine = mime.split('\r\n').find((l) => l.startsWith('Subject: '));
+    const encoded = subjectLine.match(/^Subject: =\?UTF-8\?B\?(.+)\?=$/)[1];
+    expect(Buffer.from(encoded, 'base64').toString('utf8')).toBe('Digest — “quotes”');
+    expect(/^[\x00-\x7F]*$/.test(mime)).toBe(true);
+  });
+
+  test('long non-ASCII subjects fold into encoded words of at most 75 chars', () => {
+    const title = 'Ünïcödé “title” — '.repeat(8).trim();
+    const mime = makeMultipartMime('a@kindle.com', title, '<p>x</p>', 'x.html');
+    const headerBlock = mime.split('\r\n\r\n')[0];
+    const subject = headerBlock.match(/^Subject: ([\s\S]*?)\r\nContent-Type:/m)[1];
+    const words = subject.split('\r\n ');
+    expect(words.length).toBeGreaterThan(1);
+    words.forEach((w) => expect(w.length).toBeLessThanOrEqual(75));
+    const decoded = words.map((w) => Buffer.from(w.match(/^=\?UTF-8\?B\?(.+)\?=$/)[1], 'base64').toString('utf8')).join('');
+    expect(decoded).toBe(title);
+  });
+
+  test('CR/LF in a title cannot inject headers', () => {
+    const mime = makeMultipartMime('a@kindle.com', 'Hi\r\nBcc: evil@example.com', '<p>x</p>', 'x.html');
+    expect(mime).not.toMatch(/\r\nBcc:/);
+  });
 });

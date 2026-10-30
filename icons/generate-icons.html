@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Icon Generator – Substack to Kindle</title>
+  <style>
+    body { font-family: sans-serif; padding: 30px; background: #f5f5f5; }
+    h1 { font-size: 20px; }
+    p { color: #555; }
+    .previews { display: flex; gap: 20px; align-items: flex-end; margin: 20px 0; }
+    .preview { text-align: center; }
+    .preview canvas { display: block; border: 1px solid #ccc; background: white; }
+    .preview span { font-size: 12px; color: #888; margin-top: 4px; display: block; }
+    button {
+      background: #FF6719;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover { background: #e55a10; }
+    .instructions {
+      background: #fff3e0;
+      border-left: 4px solid #FF6719;
+      padding: 14px 18px;
+      margin-top: 24px;
+      border-radius: 4px;
+    }
+    .instructions ol { margin: 8px 0 0 18px; padding: 0; }
+    .instructions li { margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Substack to Kindle – Icon Generator</h1>
+  <p>Preview your icons below, then click <strong>Download All Icons</strong>.</p>
+
+  <div class="previews">
+    <div class="preview">
+      <canvas id="c128" width="128" height="128"></canvas>
+      <span>128×128</span>
+    </div>
+    <div class="preview">
+      <canvas id="c48" width="48" height="48"></canvas>
+      <span>48×48</span>
+    </div>
+    <div class="preview">
+      <canvas id="c16" width="16" height="16"></canvas>
+      <span>16×16</span>
+    </div>
+  </div>
+
+  <button onclick="downloadAll()">Download All Icons</button>
+
+  <div class="instructions">
+    <strong>After downloading:</strong>
+    <ol>
+      <li>Move <code>icon16.png</code>, <code>icon48.png</code>, and <code>icon128.png</code> into the <code>icons/</code> folder, replacing the old files.</li>
+      <li>Come back to Claude Code and say <strong>"icons are replaced, build the ZIP"</strong>.</li>
+    </ol>
+  </div>
+
+  <script>
+    function drawIcon(canvas) {
+      const size = canvas.width;
+      const ctx = canvas.getContext('2d');
+      const s = size / 128; // scale factor
+
+      // Background – rounded rect
+      const r = size * 0.18;
+      ctx.beginPath();
+      ctx.moveTo(r, 0); ctx.lineTo(size - r, 0);
+      ctx.arcTo(size, 0, size, r, r);
+      ctx.lineTo(size, size - r);
+      ctx.arcTo(size, size, size - r, size, r);
+      ctx.lineTo(r, size);
+      ctx.arcTo(0, size, 0, size - r, r);
+      ctx.lineTo(0, r);
+      ctx.arcTo(0, 0, r, 0, r);
+      ctx.closePath();
+      ctx.fillStyle = '#FF6719';
+      ctx.fill();
+
+      if (size <= 16) {
+        // Simplified: just a white letter "K"
+        ctx.fillStyle = 'white';
+        ctx.font = `bold ${size * 0.72}px Arial`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('K', size / 2, size / 2 + 1);
+        return;
+      }
+
+      // Book body
+      const bx = size * 0.15;
+      const by = size * 0.20;
+      const bw = size * 0.70;
+      const bh = size * 0.56;
+      const br = size * 0.05;
+
+      ctx.beginPath();
+      ctx.moveTo(bx + br, by);
+      ctx.lineTo(bx + bw - br, by);
+      ctx.arcTo(bx + bw, by, bx + bw, by + br, br);
+      ctx.lineTo(bx + bw, by + bh - br);
+      ctx.arcTo(bx + bw, by + bh, bx + bw - br, by + bh, br);
+      ctx.lineTo(bx + br, by + bh);
+      ctx.arcTo(bx, by + bh, bx, by + bh - br, br);
+      ctx.lineTo(bx, by + br);
+      ctx.arcTo(bx, by, bx + br, by, br);
+      ctx.closePath();
+      ctx.fillStyle = 'white';
+      ctx.fill();
+
+      // Book spine line
+      ctx.beginPath();
+      ctx.moveTo(size * 0.50, by + size * 0.04);
+      ctx.lineTo(size * 0.50, by + bh - size * 0.04);
+      ctx.strokeStyle = '#FF6719';
+      ctx.lineWidth = size * 0.045;
+      ctx.stroke();
+
+      // Three text lines on right page
+      const lx = size * 0.54;
+      const lw = size * 0.28;
+      const lh = size * 0.04;
+      const lgap = size * 0.085;
+      const ly0 = by + size * 0.12;
+      ctx.fillStyle = '#FFCBA4';
+      for (let i = 0; i < 3; i++) {
+        const w = i === 2 ? lw * 0.65 : lw;
+        ctx.fillRect(lx, ly0 + i * lgap, w, lh);
+      }
+
+      // Arrow pointing right (send symbol) at bottom
+      const ax = size * 0.30;
+      const ay = size * 0.83;
+      const aw = size * 0.48;
+      const ah = size * 0.10;
+      const tip = size * 0.13;
+
+      ctx.beginPath();
+      ctx.moveTo(ax, ay - ah * 0.4);
+      ctx.lineTo(ax + aw - tip, ay - ah * 0.4);
+      ctx.lineTo(ax + aw - tip, ay - ah * 0.75);
+      ctx.lineTo(ax + aw, ay);
+      ctx.lineTo(ax + aw - tip, ay + ah * 0.75);
+      ctx.lineTo(ax + aw - tip, ay + ah * 0.4);
+      ctx.lineTo(ax, ay + ah * 0.4);
+      ctx.closePath();
+      ctx.fillStyle = 'white';
+      ctx.fill();
+    }
+
+    const sizes = [128, 48, 16];
+    sizes.forEach(sz => {
+      const c = document.getElementById('c' + sz);
+      drawIcon(c);
+    });
+
+    function downloadAll() {
+      sizes.forEach(sz => {
+        const c = document.getElementById('c' + sz);
+        const a = document.createElement('a');
+        a.download = `icon${sz}.png`;
+        a.href = c.toDataURL('image/png');
+        a.click();
+      });
+    }
+  </script>
+</body>
+</html>
