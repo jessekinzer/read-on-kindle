@@ -8,7 +8,7 @@ Use this file to copy-paste text into the Chrome Web Store developer console.
 
 ### Extension Name
 ```
-Substack to Kindle
+Read on Kindle
 ```
 
 ### Short Description (132 characters max)
@@ -22,7 +22,7 @@ Send Substack articles to your Kindle with a single click.
 
 HOW IT WORKS:
 1. Open any Substack article (on substack.com or a custom domain)
-2. Click the Substack to Kindle icon in your toolbar
+2. Click the Read on Kindle icon in your toolbar
 3. Enter your Kindle email address (e.g. yourname@kindle.com) — only needed once
 4. Click "Send to Kindle"
 
@@ -83,7 +83,7 @@ How to take a 1280×800 screenshot:
 
 After you push this repo to GitHub and enable GitHub Pages, your URL will be:
 ```
-https://YOUR-GITHUB-USERNAME.github.io/substack_to_kindle/privacy-policy.html
+https://YOUR-GITHUB-USERNAME.github.io/read-on-kindle/privacy-policy.html
 ```
 
 Replace YOUR-GITHUB-USERNAME with your actual GitHub username.
@@ -101,7 +101,7 @@ Replace YOUR-GITHUB-USERNAME with your actual GitHub username.
 ## Google OAuth Setup (Required before submitting)
 
 1. Go to https://console.cloud.google.com
-2. Create a new project named "Substack to Kindle"
+2. Create a new project named "Read on Kindle"
 3. Search for and enable the "Gmail API"
 4. Go to APIs & Services → Credentials → Create Credentials → OAuth 2.0 Client ID
 5. Application type: "Chrome Extension"
@@ -117,8 +117,8 @@ Replace YOUR-GITHUB-USERNAME with your actual GitHub username.
 Run this command in the project folder (Terminal → cd into the folder first):
 
 ```bash
-cd /Users/jk/Documents/GitHub/substack_to_kindle
-zip -r substack-to-kindle.zip manifest.json background.js popup.html popup.css popup.js content.js gmail.js icons/icon16.png icons/icon48.png icons/icon128.png lib/Readability.js
+cd /Users/jk/Documents/GitHub/read-on-kindle
+zip -r read-on-kindle.zip manifest.json background.js popup.html popup.css popup.js content.js gmail.js icons/icon16.png icons/icon48.png icons/icon128.png lib/Readability.js
 ```
 
 Or ask Claude Code: "build the production ZIP"

@@ -299,7 +299,7 @@ function friendlyError(err) {
   }
   if (err && err.code === 'insufficient_scope') {
     return 'Gmail permission to send email was not given. Click Send again and, on the Google screen, '
-      + 'tick the box that lets Substack to Kindle send email.';
+      + 'tick the box that lets Read on Kindle send email.';
   }
   if (status === 401) return 'Your Gmail sign-in expired. Click Send again to sign in.';
   if (status === 400 && /recipient|to header|address/.test(lower)) {
