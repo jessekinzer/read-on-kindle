@@ -6,6 +6,8 @@ Say you're on a Substack post, a blog or a news story. Click the extension, hit 
 
 <img width="412" height="578" alt="file-0cebc3415418480bef9366ad7481e09e" src="https://github.com/user-attachments/assets/944ced26-9601-4449-85e3-522bf856d70f" />
 
+
+
 <img width="430" height="280" alt="image" src="https://github.com/user-attachments/assets/3cc90903-f3ec-4da8-b323-2b511ad89981" />
 
 
