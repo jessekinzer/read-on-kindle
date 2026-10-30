@@ -4,6 +4,11 @@ Read on Kindle is a Chrome extension that sends the article you're reading to yo
 
 Say you're on a Substack post, a blog or a news story. Click the extension, hit Send, and a few minutes later the article is on your Kindle, ready to read like a book. Pictures included.
 
+<img width="412" height="578" alt="file-0cebc3415418480bef9366ad7481e09e" src="https://github.com/user-attachments/assets/944ced26-9601-4449-85e3-522bf856d70f" />
+
+<img width="430" height="280" alt="image" src="https://github.com/user-attachments/assets/3cc90903-f3ec-4da8-b323-2b511ad89981" />
+
+
 ## Why I built it
 
 Some of the best long reads online are newsletters, and a phone is a bad place to read a long essay. Amazon lets you email files to your Kindle, but getting a web page there cleanly takes too many steps for one article. This makes it one click.
